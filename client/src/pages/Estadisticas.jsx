@@ -1,49 +1,33 @@
 // src/pages/Estadisticas.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import { useNavigate } from 'react-router-dom';
 import ReportWidget from '../components/ReportWidget';
+import axios from 'axios';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export default function Estadisticas() {
   const [modoEditar, setModoEditar] = useState(false);
-  const [layouts, setLayouts] = useState([
-    { i: 'reporte1', x: 0, y: 0, w: 6, h: 5, minW: 4, minH: 4 },
-    { i: 'reporte2', x: 6, y: 0, w: 6, h: 5, minW: 4, minH: 4 }
-  ]);
+  const [layouts, setLayouts] = useState([]);
   const navigate = useNavigate();
 
-  const reportes = {
-    reporte1: {
-      title: 'Análisis semanal',
-      chartType: 'bar',
-      data: {
-        labels: ['Lun', 'Mar', 'Mié', 'Jue'],
-        datasets: [{
-          label: 'Pedidos',
-          data: [5, 8, 6, 9],
-          backgroundColor: '#3B82F6'
-        }]
+  useEffect(() => {
+    const fetchLayout = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('http://localhost:3000/api/users/dashboard', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setLayouts(res.data.layout);
+      } catch (error) {
+        console.error('Error al cargar el layout:', error);
       }
-    },
-    reporte2: {
-      title: 'Promedios por criterio',
-      chartType: 'radar',
-      data: {
-        labels: ['Wow', 'Viralidad', 'Logística', 'Rentabilidad', 'Contenido'],
-        datasets: [{
-          label: 'Promedios',
-          data: [4.2, 3.8, 3.5, 4.1, 4.0],
-          backgroundColor: 'rgba(59,130,246,0.4)',
-          borderColor: '#3B82F6',
-          borderWidth: 1
-        }]
-      }
-    }
-  };
+    };
+    fetchLayout();
+  }, []);
 
   const handleAgregar = () => {
     const id = `reporte${layouts.length + 1}`;
@@ -56,7 +40,20 @@ export default function Estadisticas() {
       minW: 4,
       minH: 4
     };
-    setLayouts(prev => [...prev, nuevo]);
+    const updatedLayouts = [...layouts, nuevo];
+    setLayouts(updatedLayouts);
+    saveLayout(updatedLayouts);
+  };
+
+  const saveLayout = async (layout) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:3000/api/users/dashboard', { layout }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    } catch (error) {
+      console.error('Error al guardar el layout:', error);
+    }
   };
 
   return (
@@ -90,14 +87,25 @@ export default function Estadisticas() {
         resizeHandles={modoEditar ? ['se'] : []}
         margin={[16, 16]}
         useCSSTransforms={true}
+        onLayoutChange={(currentLayout) => {
+          setLayouts(currentLayout);
+          saveLayout(currentLayout);
+        }}
       >
         {layouts.map(({ i }) => (
           <div key={i} style={{ minWidth: 300, minHeight: 280 }}>
             <ReportWidget
               id={i}
-              title={reportes[i]?.title}
-              chartType={reportes[i]?.chartType}
-              data={reportes[i]?.data}
+              title={`Reporte ${i}`}
+              chartType="bar"
+              data={{
+                labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+                datasets: [{
+                  label: 'Ventas',
+                  data: [10, 20, 30, 40],
+                  backgroundColor: '#3B82F6'
+                }]
+              }}
               onClick={() => {
                 if (!modoEditar) navigate(`/reporte/${i}`);
               }}

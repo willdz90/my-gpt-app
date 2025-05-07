@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { verifyToken, checkRole } = require('../middleware/auth.middleware');
-
+const userController = require('../controllers/user.controller');
 
 // Ruta: obtener usuario autenticado (real desde DB, sin contraseña)
 router.get('/me', verifyToken, async (req, res) => {
@@ -25,5 +25,10 @@ router.get('/admin-only', verifyToken, checkRole('admin'), (req, res) => {
     usuario: req.user
   });
 });
+
+// server/routes/user.routes.js
+router.get('/dashboard', verifyToken, userController.getDashboardLayout);
+router.put('/dashboard', verifyToken, userController.saveDashboardLayout);
+
 
 module.exports = router;
