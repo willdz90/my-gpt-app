@@ -1,0 +1,17 @@
+# Ignorar archivos sensibles
+.env
+token.txt
+
+# Node y Vite
+node_modules/
+dist/
+.vite/
+
+# VSCode y sistema
+.vscode/
+.DS_Store
+
+# Archivos temporales
+*.log
+.tmp.driveupload/
+desktop.ini
