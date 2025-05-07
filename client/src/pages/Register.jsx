@@ -1,10 +1,10 @@
-// src/pages/Login.jsx
+// src/pages/Register.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 
-export default function Login() {
+export default function Register() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,17 +19,21 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await api.post('/api/auth/login', form);
-      const token = res.data.token;
+      // Registrar
+      await api.post('/api/auth/register', form);
+      toast.success('Usuario creado correctamente');
+
+      // Login automático
+      const loginRes = await api.post('/api/auth/login', form);
+      const token = loginRes.data.token;
 
       localStorage.setItem('token', token);
       localStorage.setItem('token_expiration', Date.now() + 60 * 60 * 1000); // 1 hora
       localStorage.setItem('last_activity', Date.now());
 
-      toast.success('Sesión iniciada correctamente');
       navigate('/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Error al iniciar sesión');
+      toast.error(err.response?.data?.message || 'Error al registrar');
     } finally {
       setLoading(false);
     }
@@ -41,7 +45,7 @@ export default function Login() {
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 p-8 rounded shadow-md space-y-6 w-full max-w-md"
       >
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Crear Cuenta</h1>
 
         <input
           type="email"
@@ -55,7 +59,7 @@ export default function Login() {
         <input
           type="password"
           name="password"
-          placeholder="Contraseña"
+          placeholder="Contraseña (mínimo 6 caracteres)"
           value={form.password}
           onChange={handleChange}
           required
@@ -67,11 +71,11 @@ export default function Login() {
           disabled={loading}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
         >
-          {loading ? 'Accediendo...' : 'Iniciar sesión'}
+          {loading ? 'Registrando...' : 'Registrarse'}
         </button>
 
         <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-          ¿No tienes cuenta? <a href="/register" className="text-blue-600 dark:text-blue-400 hover:underline">Regístrate</a>
+          ¿Ya tienes cuenta? <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline">Iniciar sesión</a>
         </p>
       </form>
     </div>

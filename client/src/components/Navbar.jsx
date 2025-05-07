@@ -1,6 +1,7 @@
 // src/components/Navbar.jsx
 import { useTheme } from '../context/ThemeContext'
 import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import AccountMenu from './AccountMenu';
 
 export default function Navbar({ onMenuToggle }) {
   const { theme, toggleTheme } = useTheme()
@@ -37,6 +38,9 @@ export default function Navbar({ onMenuToggle }) {
           </>
         )}
       </button>
+      <div className="ml-auto">
+        <AccountMenu />
+      </div>
     </nav>
   )
 }

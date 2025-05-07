@@ -2,7 +2,7 @@
 const express = require('express');
 const { validationResult } = require('express-validator');
 const { validateAnalysis } = require('../utils/validators');
-const auth = require('../middlewares/auth');
+const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.post('/', auth, validateAnalysis, (req, res, next) => {
