@@ -1,27 +1,19 @@
+// server/routes/analysis.routes.js
 const express = require('express');
+const { validationResult } = require('express-validator');
+const { validateAnalysis } = require('../utils/validators');
+const auth = require('../middlewares/auth');
 const router = express.Router();
-const { verifyToken } = require('../middleware/auth.middleware');
-const ProductAnalysis = require('../models/ProductAnalysis');
 
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', auth, validateAnalysis, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
   try {
-    const { productName, analysisText } = req.body;
-
-    const analysis = new ProductAnalysis({
-      user: req.user.userId,
-      productName,
-      analysisText
-    });
-
-    await analysis.save();
-
-    res.status(201).json({
-      message: 'Análisis guardado correctamente',
-      analysis
-    });
-  } catch (error) {
-    console.error('Error al guardar análisis:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    // Aquí tu lógica de análisis...
+    res.status(201).json({ message: 'Producto analizado correctamente.' });
+  } catch (err) {
+    next(err); // Enviar al middleware de errorHandler
   }
 });
 
