@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Chart } from 'react-chartjs-2';
 import 'chart.js/auto';
+import ReportWidget from "../components/ReportWidget";
+import KpiCard from '../components/KpiCard';
+import ChartComponent from '../components/ChartComponent';
+
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState({
@@ -10,6 +14,21 @@ export default function Dashboard() {
     puntuacionMedia: 4.1,
     viablesRecientes: 3
   });
+
+    // Ejemplo de definición dentro de Dashboard.jsx
+  const dataLine = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
+    datasets: [
+      {
+        label: 'Puntuación Promedio',
+        data: [65, 59, 80, 81, 56],
+        fill: false,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+      },
+    ],
+  };
+
 
   const [rango, setRango] = useState(7);
   const [historial, setHistorial] = useState([]);
@@ -71,42 +90,8 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div style={{ minWidth: `${rango * 80}px`, height: '250px' }}>
-          <Chart
-            type="line"
-            data={{
-              labels: historial.map(d => d.fecha),
-              datasets: [
-                {
-                  label: 'Puntuación promedio',
-                  data: historial.map(d => d.puntuacion.toFixed(2)),
-                  fill: true,
-                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                  borderColor: '#3B82F6'
-                }
-              ]
-            }}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: { display: false }
-              },
-              scales: {
-                x: {
-                  ticks: {
-                    maxRotation: 0,
-                    autoSkip: false
-                  }
-                },
-                y: {
-                  min: 0,
-                  max: 5
-                }
-              }
-            }}
-          />
-        </div>
+        <ChartComponent title="Puntuación Promedio por Día" data={dataLine} type="line" />
+
       </motion.div>
 
       {/* Actividad reciente */}
@@ -125,23 +110,5 @@ export default function Dashboard() {
         </ul>
       </motion.div>
     </div>
-  );
-}
-
-function KpiCard({ title, value, icon }) {
-  return (
-    <motion.div
-      className="bg-white dark:bg-gray-800 shadow p-4 rounded-lg border dark:border-gray-700"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      <div className="flex items-center space-x-4">
-        <div className="text-3xl">{icon}</div>
-        <div>
-          <h3 className="text-sm text-gray-500 dark:text-gray-400">{title}</h3>
-          <p className="text-xl font-semibold text-gray-800 dark:text-white">{value}</p>
-        </div>
-      </div>
-    </motion.div>
   );
 }
