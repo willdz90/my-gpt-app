@@ -1,4 +1,3 @@
-// src/pages/Estadisticas.jsx
 import { useState, useEffect } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
@@ -21,7 +20,7 @@ export default function Estadisticas() {
         const res = await axios.get('http://localhost:3000/api/users/dashboard', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setLayouts(res.data.layout);
+        setLayouts(res.data.layout || []);
       } catch (error) {
         console.error('Error al cargar el layout:', error);
       }
@@ -30,19 +29,13 @@ export default function Estadisticas() {
   }, []);
 
   const handleAgregar = () => {
-    const id = `reporte${layouts.length + 1}`;
-    const nuevo = {
-      i: id,
-      x: 0,
-      y: Infinity,
-      w: 6,
-      h: 5,
-      minW: 4,
-      minH: 4
-    };
-    const updatedLayouts = [...layouts, nuevo];
-    setLayouts(updatedLayouts);
-    saveLayout(updatedLayouts);
+    navigate('/reporte/nuevo');
+  };
+
+  const handleEliminar = async (id) => {
+    const actualizado = layouts.filter(w => w.i !== id);
+    setLayouts(actualizado);
+    await saveLayout(actualizado);
   };
 
   const saveLayout = async (layout) => {
@@ -92,26 +85,50 @@ export default function Estadisticas() {
           saveLayout(currentLayout);
         }}
       >
-        {layouts.map(({ i }) => (
-          <div key={i} style={{ minWidth: 300, minHeight: 280 }}>
-            <ReportWidget
-              id={i}
-              title={`Reporte ${i}`}
-              chartType="bar"
-              data={{
-                labels: ['Ene', 'Feb', 'Mar', 'Abr'],
-                datasets: [{
-                  label: 'Ventas',
-                  data: [10, 20, 30, 40],
-                  backgroundColor: '#3B82F6'
-                }]
-              }}
-              onClick={() => {
-                if (!modoEditar) navigate(`/reporte/${i}`);
-              }}
-            />
-          </div>
-        ))}
+        {layouts.map(widget => {
+          const { i, title, chartType, campos = [], funciones = {} } = widget;
+
+          const camposMock = {
+            efectoWow: { label: 'Efecto Wow', valor: 4.2 },
+            viralidad: { label: 'Viralidad', valor: 3.8 },
+            logistica: { label: 'Logística', valor: 3.5 },
+            contenido: { label: 'Contenido Orgánico', valor: 4.0 },
+            precio: { label: 'Precio', valor: 23.5 },
+            envios: { label: 'Envíos', valor: 1200 }
+          };
+
+          const columnas = campos.slice(0, 2).map(key => ({
+            header: camposMock[key]?.label || key,
+            accessorKey: key,
+            Cell: () => camposMock[key]?.valor ?? '—'
+          }));
+
+          const data = {
+            labels: campos.map(c => camposMock[c]?.label).filter(Boolean),
+            datasets: [{
+              label: 'Valores',
+              data: campos.map(c => camposMock[c]?.valor).filter(Boolean),
+              backgroundColor: '#3B82F6'
+            }]
+          };
+
+          return (
+            <div key={i} style={{ minWidth: 300, minHeight: 280 }}>
+              <ReportWidget
+                id={i}
+                title={title}
+                chartType={chartType}
+                data={data}
+                columns={columnas}
+                modoEditar={modoEditar}
+                onClick={() => {
+                  if (!modoEditar) navigate(`/reporte/${i}`);
+                }}
+                onDelete={handleEliminar}
+              />
+            </div>
+          );
+        })}
       </ResponsiveGridLayout>
     </div>
   );
