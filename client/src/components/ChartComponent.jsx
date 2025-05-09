@@ -1,30 +1,36 @@
-// src/components/ChartComponent.jsx
-import { Chart } from 'react-chartjs-2';
-import 'chart.js/auto';
+import {
+  LineChart,
+  BarChart,
+  AreaChart,
+  Line,
+  Bar,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-export default function ChartComponent({ title, data, type = 'line' }) {
+export default function ChartComponent({ data, dataKey = "analisis", tipo = "línea" }) {
+  const Chart = tipo === "barra" ? BarChart : tipo === "área" ? AreaChart : LineChart;
+  const ChartElement = tipo === "barra" ? (
+    <Bar dataKey={dataKey} fill="#8884d8" />
+  ) : tipo === "área" ? (
+    <Area dataKey={dataKey} stroke="#8884d8" fill="#d0d0ff" />
+  ) : (
+    <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
+  );
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded shadow p-4">
-      <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4">{title}</h3>
-      <div className="w-full h-[300px]">
-        <Chart
-          type={type}
-          data={data}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: { padding: 10 },
-            plugins: {
-              legend: {
-                position: 'top',
-                labels: {
-                  color: '#111'
-                }
-              }
-            }
-          }}
-        />
-      </div>
-    </div>
+    <ResponsiveContainer width="100%" height={250}>
+      <Chart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="fecha" />
+        <YAxis />
+        <Tooltip />
+        {ChartElement}
+      </Chart>
+    </ResponsiveContainer>
   );
 }

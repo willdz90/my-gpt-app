@@ -16,6 +16,7 @@
             "KpiCard.jsx",
             "Layout.jsx",
             "Loader.jsx",
+            "MetricasSidebar.jsx",
             "Navbar.jsx",
             "NavLinks.jsx",
             "NavMenu.jsx",
@@ -35,13 +36,24 @@
             "Sidebar.jsx",
             "SidebarCampos.jsx",
             "SidebarMobile.jsx",
-            "ThemeToggle.jsx"
+            "ThemeToggle.jsx",
+            {
+              "ui": [
+                "Skeleton.jsx"
+              ]
+            },
+            "WidgetEditable.jsx"
           ]
         },
         {
           "context": [
             "AuthContext.jsx",
             "ThemeContext.jsx"
+          ]
+        },
+        {
+          "hooks": [
+            "useLocalStorage.js"
           ]
         },
         "index.css",
@@ -71,6 +83,12 @@
           ]
         },
         {
+          "services": [
+            "dashboard.service.js",
+            "stats.service.js"
+          ]
+        },
+        {
           "utils": [
             "auth.js",
             "axiosInstance.js"
@@ -90,6 +108,8 @@
     {
       "controllers": [
         "auth.controller.js",
+        "dashboard.controller.js",
+        "stats.controller.js",
         "user.controller.js"
       ]
     },
@@ -104,7 +124,8 @@
     {
       "models": [
         "ProductAnalysis.js",
-        "User.js"
+        "User.js",
+        "UserDashboardConfig.js"
       ]
     },
     "package-lock.json",
@@ -113,14 +134,18 @@
       "routes": [
         "analysis.routes.js",
         "auth.routes.js",
+        "dashboard.routes.js",
         "gpt.routes.js",
+        "stats.routes.js",
         "user.routes.js"
       ]
     },
     "search-fn.js",
     {
       "services": [
-        "gpt.service.js"
+        "dashboard.service.js",
+        "gpt.service.js",
+        "stats.service.js"
       ]
     },
     "swagger.js",

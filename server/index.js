@@ -11,6 +11,10 @@ const userRoutes = require('./routes/user.routes');
 const gptRoutes = require('./routes/gpt.routes');
 const errorHandler = require('./middleware/errorHandler');
 const { swaggerUi, specs } = require('./swagger');
+const statsRoutes = require('./routes/stats.routes');
+const dashboardRoutes = require("./routes/dashboard.routes");
+
+
 
 const app = express();
 
@@ -29,6 +33,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/gpt', gptRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api/stats', statsRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Manejo de errores
 app.use(errorHandler);
