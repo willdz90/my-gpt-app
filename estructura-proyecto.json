@@ -1,0 +1,134 @@
+{
+  "client": [
+    "eslint.config.js",
+    "package-lock.json",
+    "package.json",
+    "postcss.config.js",
+    {
+      "src": [
+        "App.css",
+        "App.jsx",
+        {
+          "components": [
+            "AccountMenu.jsx",
+            "ChartComponent.jsx",
+            "FocusHandler.jsx",
+            "KpiCard.jsx",
+            "Layout.jsx",
+            "Loader.jsx",
+            "Navbar.jsx",
+            "NavLinks.jsx",
+            "NavMenu.jsx",
+            "PrivateRoute.jsx",
+            "ProductForm.jsx",
+            "ProductPreview.jsx",
+            "ProductResult.jsx",
+            {
+              "reportes": [
+                "ChartComponent.jsx",
+                "QueryPreview.jsx",
+                "TablaReporte.jsx",
+                "ToolbarReporte.jsx"
+              ]
+            },
+            "ReportWidget.jsx",
+            "Sidebar.jsx",
+            "SidebarCampos.jsx",
+            "SidebarMobile.jsx",
+            "ThemeToggle.jsx"
+          ]
+        },
+        {
+          "context": [
+            "AuthContext.jsx",
+            "ThemeContext.jsx"
+          ]
+        },
+        "index.css",
+        "main.jsx",
+        {
+          "mocks": [
+            "mockResults.js"
+          ]
+        },
+        {
+          "pages": [
+            "Analyze.jsx",
+            "Dashboard.jsx",
+            "Estadisticas.jsx",
+            "LandingPage.jsx",
+            "Login.jsx",
+            "ProductDetail.jsx",
+            "Products.jsx",
+            "Profile.jsx",
+            "Register.jsx",
+            "ReporteDetalle.jsx"
+          ]
+        },
+        {
+          "routes": [
+            "AppRoutes.jsx"
+          ]
+        },
+        {
+          "utils": [
+            "auth.js",
+            "axiosInstance.js"
+          ]
+        }
+      ]
+    },
+    "tailwind.config.js",
+    "vite.config.js"
+  ],
+  "server": [
+    {
+      "config": [
+        "db.js"
+      ]
+    },
+    {
+      "controllers": [
+        "auth.controller.js",
+        "user.controller.js"
+      ]
+    },
+    "index.js",
+    {
+      "middleware": [
+        "auth.js",
+        "auth.middleware.js",
+        "errorHandler.js"
+      ]
+    },
+    {
+      "models": [
+        "ProductAnalysis.js",
+        "User.js"
+      ]
+    },
+    "package-lock.json",
+    "package.json",
+    {
+      "routes": [
+        "analysis.routes.js",
+        "auth.routes.js",
+        "gpt.routes.js",
+        "user.routes.js"
+      ]
+    },
+    "search-fn.js",
+    {
+      "services": [
+        "gpt.service.js"
+      ]
+    },
+    "swagger.js",
+    {
+      "utils": [
+        "botMemory.js",
+        "validators.js"
+      ]
+    }
+  ]
+}
