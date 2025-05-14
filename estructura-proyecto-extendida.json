@@ -1,0 +1,1829 @@
+{
+  "client\\eslint.config.js": {
+    "imports": [
+      "import js from '@eslint/js'",
+      "import globals from 'globals'",
+      "import reactHooks from 'eslint-plugin-react-hooks'",
+      "import reactRefresh from 'eslint-plugin-react-refresh'"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-04T21:21:00.384Z",
+    "size": 844
+  },
+  "client\\package-lock.json": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T23:43:30.712Z",
+    "size": 240129
+  },
+  "client\\package.json": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T22:40:49.632Z",
+    "size": 1519
+  },
+  "client\\postcss.config.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-05T05:34:25.336Z",
+    "size": 80
+  },
+  "client\\src\\App.css": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-06T22:26:59.814Z",
+    "size": 108
+  },
+  "client\\src\\App.jsx": {
+    "imports": [
+      "import { useEffect, useState } from 'react';",
+      "import AppRoutes from './routes/AppRoutes';",
+      "import { ThemeProvider } from './context/ThemeContext';",
+      "import { ToastContainer, toast } from 'react-toastify';",
+      "import { logout } from './utils/auth';",
+      "import api from './utils/axiosInstance';",
+      "import { AuthProvider, useAuth } from './context/AuthContext';"
+    ],
+    "tailwindClasses": [
+      "text-center",
+      "mt-20",
+      "text-gray-600",
+      "dark:text-white"
+    ],
+    "lastModified": "2025-05-07T15:10:01.217Z",
+    "size": 2929
+  },
+  "client\\src\\components\\AccountMenu.jsx": {
+    "imports": [
+      "import { useState, useEffect } from 'react';",
+      "import { useNavigate } from 'react-router-dom';",
+      "import { UserCircleIcon } from '@heroicons/react/24/outline';",
+      "import { logout } from '../utils/auth';",
+      "import axios from 'axios';"
+    ],
+    "tailwindClasses": [
+      "relative",
+      "p-2",
+      "hover:bg-gray-200",
+      "dark:hover:bg-gray-700",
+      "rounded-full",
+      "w-6",
+      "h-6",
+      "text-gray-700",
+      "dark:text-white",
+      "absolute",
+      "right-0",
+      "mt-2",
+      "w-48",
+      "bg-white",
+      "dark:bg-gray-800",
+      "shadow-md",
+      "rounded",
+      "z-50",
+      "text-sm",
+      "px-4",
+      "py-2",
+      "text-gray-600",
+      "dark:text-gray-300",
+      "border-b",
+      "border-gray-200",
+      "dark:border-gray-700",
+      "w-full",
+      "text-left",
+      "hover:bg-gray-100",
+      "text-gray-800",
+      "text-red-600",
+      "dark:text-red-400",
+      "hover:bg-red-100",
+      "dark:hover:bg-red-700"
+    ],
+    "lastModified": "2025-05-07T05:33:14.994Z",
+    "size": 1988
+  },
+  "client\\src\\components\\ChartComponent.jsx": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T17:35:21.628Z",
+    "size": 945
+  },
+  "client\\src\\components\\ColumnSettingsModal.jsx": {
+    "imports": [
+      "import { Dialog } from \"@headlessui/react\";"
+    ],
+    "tailwindClasses": [
+      "relative",
+      "z-50",
+      "fixed",
+      "inset-0",
+      "bg-black/30",
+      "flex",
+      "items-center",
+      "justify-center",
+      "p-4",
+      "w-full",
+      "max-w-md",
+      "rounded-xl",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "p-6",
+      "space-y-4",
+      "shadow-lg",
+      "text-xl",
+      "font-semibold",
+      "space-y-2",
+      "justify-between",
+      "text-sm",
+      "capitalize",
+      "scale-125",
+      "accent-blue-600",
+      "text-right",
+      "mt-4",
+      "px-4",
+      "py-2",
+      "rounded",
+      "bg-blue-600",
+      "text-white",
+      "hover:bg-blue-700"
+    ],
+    "lastModified": "2025-05-10T20:19:57.949Z",
+    "size": 1610
+  },
+  "client\\src\\components\\ExportModal.jsx": {
+    "imports": [
+      "import { Dialog, Transition } from \"@headlessui/react\";",
+      "import { Fragment } from \"react\";"
+    ],
+    "tailwindClasses": [
+      "relative",
+      "z-50",
+      "fixed",
+      "inset-0",
+      "bg-black",
+      "bg-opacity-40",
+      "backdrop-blur-sm",
+      "overflow-y-auto",
+      "flex",
+      "min-h-full",
+      "items-center",
+      "justify-center",
+      "p-4",
+      "w-full",
+      "max-w-md",
+      "transform",
+      "overflow-hidden",
+      "rounded-xl",
+      "bg-white",
+      "dark:bg-bg-surface",
+      "p-6",
+      "shadow-xl",
+      "transition-all",
+      "justify-between",
+      "mb-4",
+      "text-lg",
+      "font-semibold",
+      "text-gray-900",
+      "dark:text-text-primary",
+      "text-zinc-500",
+      "hover:text-red-500",
+      "h-5",
+      "w-5",
+      "space-y-3",
+      "gap-3",
+      "px-4",
+      "py-2",
+      "rounded-md",
+      "border",
+      "border-zinc-300",
+      "dark:border-border-base",
+      "dark:bg-ui-base",
+      "text-zinc-800",
+      "hover:bg-zinc-100",
+      "dark:hover:bg-bg-base",
+      "transition",
+      "text-blue-500",
+      "dark:text-blue-400",
+      "flex-1",
+      "text-left",
+      "mt-6",
+      "text-right",
+      "text-sm",
+      "text-blue-600",
+      "hover:underline"
+    ],
+    "lastModified": "2025-05-10T16:02:45.975Z",
+    "size": 3647
+  },
+  "client\\src\\components\\FilterDropdown.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "w-60",
+      "text-sm",
+      "block",
+      "mb-1",
+      "text-zinc-700",
+      "dark:text-zinc-200",
+      "font-medium",
+      "w-full",
+      "px-3",
+      "py-2",
+      "rounded-md",
+      "border",
+      "border-zinc-300",
+      "dark:border-zinc-600",
+      "bg-white",
+      "dark:bg-zinc-800",
+      "text-zinc-800",
+      "dark:text-white",
+      "shadow-sm",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-blue-500"
+    ],
+    "lastModified": "2025-05-10T01:32:56.483Z",
+    "size": 757
+  },
+  "client\\src\\components\\FocusHandler.jsx": {
+    "imports": [
+      "import { useEffect } from 'react';",
+      "import { useLocation } from 'react-router-dom';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-08T01:26:28.574Z",
+    "size": 366
+  },
+  "client\\src\\components\\KpiCard.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "bg-white",
+      "dark:bg-gray-800",
+      "rounded",
+      "shadow",
+      "p-4",
+      "flex",
+      "flex-col",
+      "items-center",
+      "justify-center",
+      "text-center",
+      "text-4xl",
+      "mb-2",
+      "text-sm",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "text-xl",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white"
+    ],
+    "lastModified": "2025-05-08T23:08:58.552Z",
+    "size": 461
+  },
+  "client\\src\\components\\Layout.jsx": {
+    "imports": [
+      "import { useState } from 'react';",
+      "import Navbar from './Navbar';",
+      "import Sidebar from './Sidebar';",
+      "import SidebarMobile from './SidebarMobile';",
+      "import FocusHandler from './FocusHandler';",
+      "import { useLocation } from 'react-router-dom';"
+    ],
+    "tailwindClasses": [
+      "h-screen",
+      "bg-black",
+      "dark:bg-[#0c0c0c]",
+      "flex",
+      "flex-col",
+      "flex-1",
+      "overflow-hidden",
+      "w-full",
+      "h-full",
+      "bg-white",
+      "dark:bg-gray-800",
+      "rounded-tl-xl",
+      "rounded-tr-xl",
+      "shadow-md",
+      "hidden",
+      "md:block",
+      "w-64",
+      "border-r",
+      "dark:border-gray-700",
+      "overflow-y-auto",
+      "p-6"
+    ],
+    "lastModified": "2025-05-10T19:35:47.232Z",
+    "size": 1655
+  },
+  "client\\src\\components\\Loader.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "flex",
+      "items-center",
+      "justify-center",
+      "h-64",
+      "animate-spin",
+      "rounded-full",
+      "h-16",
+      "w-16",
+      "border-t-4",
+      "border-blue-500"
+    ],
+    "lastModified": "2025-05-05T16:22:29.172Z",
+    "size": 268
+  },
+  "client\\src\\components\\MetricasSidebar.jsx": {
+    "imports": [
+      "import { useState } from \"react\";"
+    ],
+    "tailwindClasses": [
+      "w-64",
+      "bg-zinc-100",
+      "dark:bg-zinc-800",
+      "text-gray-800",
+      "dark:text-white",
+      "border-l",
+      "border-zinc-300",
+      "dark:border-zinc-700",
+      "p-4",
+      "space-y-4",
+      "text-lg",
+      "font-semibold",
+      "mb-2",
+      "space-y-2",
+      "mt-4",
+      "text-sm",
+      "text-gray-600",
+      "dark:text-gray-300",
+      "w-full",
+      "p-2",
+      "border",
+      "rounded",
+      "dark:bg-gray-700",
+      "text-xs",
+      "italic",
+      "text-red-600",
+      "dark:text-red-400",
+      "mt-2",
+      "bg-green-600",
+      "text-white",
+      "px-4",
+      "py-2",
+      "shadow",
+      "hover:bg-green-700"
+    ],
+    "lastModified": "2025-05-10T21:06:21.820Z",
+    "size": 2717
+  },
+  "client\\src\\components\\Navbar.jsx": {
+    "imports": [
+      "import { useTheme } from '../context/ThemeContext'",
+      "import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/react/24/outline'",
+      "import AccountMenu from './AccountMenu';"
+    ],
+    "tailwindClasses": [
+      "flex",
+      "items-center",
+      "gap-3",
+      "md:hidden",
+      "p-2",
+      "rounded",
+      "hover:bg-accent-primary/10",
+      "transition",
+      "w-6",
+      "h-6",
+      "text-lg",
+      "font-bold",
+      "hover:text-accent-primary",
+      "gap-2",
+      "px-2",
+      "py-1",
+      "text-sm",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-accent-secondary",
+      "w-5",
+      "h-5",
+      "text-yellow-400",
+      "hidden",
+      "sm:inline",
+      "text-accent-primary",
+      "ml-auto"
+    ],
+    "lastModified": "2025-05-10T15:46:49.413Z",
+    "size": 1678
+  },
+  "client\\src\\components\\NavLinks.jsx": {
+    "imports": [
+      "import { Link, useLocation } from 'react-router-dom';",
+      "import { logout } from '../utils/auth';",
+      "import { FiZap, FiPackage, FiBarChart2, FiHome, FiLogOut } from 'react-icons/fi';"
+    ],
+    "tailwindClasses": [
+      "space-y-2",
+      "text-lg",
+      "flex",
+      "items-center",
+      "gap-3",
+      "w-full",
+      "text-left",
+      "px-4",
+      "py-2",
+      "rounded-md",
+      "text-sm",
+      "font-medium",
+      "text-red-600",
+      "dark:text-red-400",
+      "hover:bg-red-100",
+      "dark:hover:bg-red-700",
+      "transition"
+    ],
+    "lastModified": "2025-05-08T01:21:02.269Z",
+    "size": 1675
+  },
+  "client\\src\\components\\NavMenu.jsx": {
+    "imports": [
+      "import { Link, useLocation } from 'react-router-dom'"
+    ],
+    "tailwindClasses": [
+      "hidden",
+      "md:flex",
+      "justify-center",
+      "gap-8",
+      "bg-white",
+      "dark:bg-gray-800",
+      "py-3",
+      "border-b",
+      "border-gray-200",
+      "dark:border-gray-700"
+    ],
+    "lastModified": "2025-05-06T15:06:22.144Z",
+    "size": 964
+  },
+  "client\\src\\components\\PrivateRoute.jsx": {
+    "imports": [
+      "import { Navigate } from 'react-router-dom';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T05:11:47.325Z",
+    "size": 405
+  },
+  "client\\src\\components\\ProductForm.jsx": {
+    "imports": [
+      "import { useState, useRef } from 'react';",
+      "import { toast } from 'react-toastify';"
+    ],
+    "tailwindClasses": [
+      "w-full",
+      "space-y-6",
+      "text-sm",
+      "text-gray-700",
+      "dark:text-gray-300",
+      "leading-relaxed",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "p-6",
+      "rounded-lg",
+      "shadow-md",
+      "space-y-4",
+      "transition-all",
+      "text-xl",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white",
+      "flex",
+      "items-center",
+      "gap-2",
+      "p-2",
+      "rounded",
+      "border",
+      "border-gray-300",
+      "dark:bg-zinc-800",
+      "dark:border-gray-600",
+      "focus:ring",
+      "focus:ring-blue-500",
+      "grid",
+      "grid-cols-1",
+      "md:grid-cols-2",
+      "gap-4",
+      "block",
+      "font-medium",
+      "justify-between",
+      "bg-gray-500",
+      "hover:bg-gray-600",
+      "text-white",
+      "font-semibold",
+      "py-2",
+      "px-4"
+    ],
+    "lastModified": "2025-05-10T19:28:38.068Z",
+    "size": 8467
+  },
+  "client\\src\\components\\ProductPreview.jsx": {
+    "imports": [
+      "import { useState } from 'react';"
+    ],
+    "tailwindClasses": [
+      "bg-white",
+      "dark:bg-zinc-900",
+      "border-2",
+      "border-dashed",
+      "border-gray-300",
+      "dark:border-gray-600",
+      "p-6",
+      "text-center",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "h-full",
+      "flex",
+      "flex-col",
+      "justify-center",
+      "items-center",
+      "rounded-lg",
+      "shadow-inner",
+      "text-2xl",
+      "mt-3",
+      "text-sm",
+      "dark:bg-gray-800",
+      "p-4",
+      "md:p-6",
+      "shadow-lg",
+      "transition-all",
+      "sm:flex-row",
+      "justify-between",
+      "items-start",
+      "sm:items-center",
+      "mb-4",
+      "gap-2",
+      "md:text-3xl",
+      "font-extrabold",
+      "text-gray-900",
+      "dark:text-white",
+      "text-xl",
+      "md:text-2xl",
+      "font-bold",
+      "text-blue-600",
+      "dark:text-blue-400",
+      "max-h-64",
+      "w-full",
+      "object-contain",
+      "border",
+      "overflow-x-auto",
+      "sm:overflow-visible",
+      "mb-6",
+      "space-y-4",
+      "sm:text-base",
+      "font-semibold",
+      "text-gray-700",
+      "dark:text-zinc-300",
+      "text-gray-800",
+      "dark:text-gray-200",
+      "list-disc",
+      "list-inside",
+      "space-y-1"
+    ],
+    "lastModified": "2025-05-10T19:15:22.848Z",
+    "size": 4416
+  },
+  "client\\src\\components\\ProductResult.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "flex",
+      "items-center",
+      "gap-2",
+      "text-sm",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "p-6",
+      "rounded-lg",
+      "shadow",
+      "space-y-6",
+      "text-gray-700",
+      "dark:text-gray-200",
+      "justify-between",
+      "border-b",
+      "pb-2",
+      "text-xl",
+      "font-semibold",
+      "text-gray-900",
+      "dark:text-white",
+      "grid",
+      "grid-cols-2",
+      "sm:grid-cols-3",
+      "gap-4",
+      "grid-cols-1",
+      "sm:grid-cols-2",
+      "gap-3",
+      "capitalize",
+      "text-yellow-500",
+      "text-base",
+      "list-disc",
+      "pl-5",
+      "mt-2"
+    ],
+    "lastModified": "2025-05-09T19:05:27.663Z",
+    "size": 5589
+  },
+  "client\\src\\components\\ProductsTable.jsx": {
+    "imports": [
+      "import React, { useMemo, useState } from 'react';",
+      "import { Resizable } from 'react-resizable';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T23:41:56.241Z",
+    "size": 4858
+  },
+  "client\\src\\components\\reportes\\ChartComponent.jsx": {
+    "imports": [
+      "import { Chart } from 'react-chartjs-2';"
+    ],
+    "tailwindClasses": [
+      "bg-white",
+      "dark:bg-gray-800",
+      "rounded",
+      "shadow",
+      "p-4",
+      "min-h-[300px]",
+      "mb-4",
+      "p-2",
+      "border",
+      "dark:bg-gray-700",
+      "dark:text-white",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "text-center"
+    ],
+    "lastModified": "2025-05-08T01:02:42.433Z",
+    "size": 1169
+  },
+  "client\\src\\components\\reportes\\QueryPreview.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "w-full",
+      "px-3",
+      "py-2",
+      "font-mono",
+      "border",
+      "rounded",
+      "resize-none",
+      "bg-white",
+      "dark:bg-gray-800",
+      "dark:text-white"
+    ],
+    "lastModified": "2025-05-08T01:00:39.958Z",
+    "size": 376
+  },
+  "client\\src\\components\\reportes\\TablaReporte.jsx": {
+    "imports": [
+      "import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-08T01:00:46.775Z",
+    "size": 430
+  },
+  "client\\src\\components\\reportes\\ToolbarReporte.jsx": {
+    "imports": [],
+    "tailwindClasses": [
+      "mb-6",
+      "flex",
+      "justify-between",
+      "items-center",
+      "mb-4",
+      "text-2xl",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white",
+      "space-x-3",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "px-4",
+      "py-2",
+      "rounded",
+      "bg-green-600",
+      "hover:bg-green-700",
+      "w-full",
+      "px-3",
+      "border",
+      "dark:bg-gray-800"
+    ],
+    "lastModified": "2025-05-08T01:00:31.397Z",
+    "size": 1097
+  },
+  "client\\src\\components\\ReportWidget.jsx": {
+    "imports": [
+      "import { Chart } from 'react-chartjs-2';"
+    ],
+    "tailwindClasses": [
+      "text-lg",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white",
+      "mb-2",
+      "absolute",
+      "top-2",
+      "right-2",
+      "text-red-600",
+      "hover:text-red-800",
+      "z-10",
+      "w-full",
+      "h-full",
+      "flex",
+      "justify-center",
+      "items-center",
+      "relative",
+      "text-sm",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "overflow-x-auto",
+      "mt-4",
+      "min-w-full",
+      "text-left",
+      "p-1",
+      "font-semibold"
+    ],
+    "lastModified": "2025-05-08T22:33:03.969Z",
+    "size": 2766
+  },
+  "client\\src\\components\\Sidebar.jsx": {
+    "imports": [
+      "import NavLinks from './NavLinks';"
+    ],
+    "tailwindClasses": [
+      "p-4",
+      "w-full",
+      "text-lg",
+      "font-bold",
+      "mb-6",
+      "text-gray-800",
+      "dark:text-white"
+    ],
+    "lastModified": "2025-05-08T01:16:13.955Z",
+    "size": 280
+  },
+  "client\\src\\components\\SidebarCampos.jsx": {
+    "imports": [
+      "import { useEffect, useState } from 'react';"
+    ],
+    "tailwindClasses": [
+      "bg-gray-100",
+      "dark:bg-gray-900",
+      "p-4",
+      "rounded",
+      "shadow",
+      "border",
+      "dark:border-gray-700",
+      "overflow-y-auto",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white",
+      "mb-3",
+      "mb-4",
+      "text-sm",
+      "font-semibold",
+      "text-gray-700",
+      "dark:text-gray-300",
+      "mb-2",
+      "space-y-2",
+      "flex",
+      "items-center",
+      "justify-between",
+      "gap-2",
+      "w-full",
+      "mr-2",
+      "p-1",
+      "bg-white",
+      "dark:bg-gray-800"
+    ],
+    "lastModified": "2025-05-08T00:37:45.226Z",
+    "size": 2712
+  },
+  "client\\src\\components\\SidebarMobile.jsx": {
+    "imports": [
+      "import { Link, useLocation } from 'react-router-dom';",
+      "import { XMarkIcon } from '@heroicons/react/24/outline';",
+      "import { logout } from '../utils/auth';"
+    ],
+    "tailwindClasses": [
+      "fixed",
+      "inset-0",
+      "bg-black",
+      "bg-opacity-50",
+      "z-40",
+      "flex",
+      "justify-between",
+      "items-center",
+      "p-4",
+      "border-b",
+      "border-gray-200",
+      "dark:border-gray-700",
+      "text-lg",
+      "font-bold",
+      "text-gray-800",
+      "dark:text-white",
+      "w-6",
+      "h-6",
+      "space-y-2",
+      "w-full",
+      "text-left",
+      "px-3",
+      "py-2",
+      "rounded",
+      "text-sm",
+      "font-medium",
+      "text-red-600",
+      "dark:text-red-400",
+      "hover:bg-red-100",
+      "dark:hover:bg-red-700"
+    ],
+    "lastModified": "2025-05-07T05:18:37.258Z",
+    "size": 2179
+  },
+  "client\\src\\components\\ThemeToggle.jsx": {
+    "imports": [
+      "import { useState } from 'react';",
+      "import { useTheme } from '../context/ThemeContext';",
+      "import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';"
+    ],
+    "tailwindClasses": [
+      "group",
+      "flex",
+      "items-center",
+      "gap-2",
+      "px-4",
+      "py-1",
+      "rounded-full",
+      "transition",
+      "bg-gray-200",
+      "dark:bg-gray-700",
+      "text-gray-900",
+      "dark:text-white",
+      "hover:bg-gray-300",
+      "dark:hover:bg-gray-600",
+      "w-5",
+      "h-5",
+      "text-yellow-400",
+      "text-purple-400"
+    ],
+    "lastModified": "2025-05-05T14:47:42.730Z",
+    "size": 1133
+  },
+  "client\\src\\components\\ui\\Button.jsx": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T19:32:30.289Z",
+    "size": 404
+  },
+  "client\\src\\components\\ui\\InputField.jsx": {
+    "imports": [
+      "import React from \"react\";"
+    ],
+    "tailwindClasses": [
+      "space-y-1",
+      "text-sm",
+      "w-full",
+      "block",
+      "font-medium",
+      "text-zinc-700",
+      "dark:text-zinc-200",
+      "px-3",
+      "py-2",
+      "rounded-md",
+      "border",
+      "border-zinc-300",
+      "dark:border-zinc-700",
+      "bg-white",
+      "dark:bg-zinc-800",
+      "text-zinc-900",
+      "dark:text-white",
+      "shadow-sm",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-blue-500"
+    ],
+    "lastModified": "2025-05-10T03:55:47.411Z",
+    "size": 830
+  },
+  "client\\src\\components\\ui\\ModalBase.jsx": {
+    "imports": [
+      "import { Dialog, Transition } from \"@headlessui/react\";",
+      "import { Fragment } from \"react\";"
+    ],
+    "tailwindClasses": [
+      "relative",
+      "z-50",
+      "fixed",
+      "inset-0",
+      "bg-black/40",
+      "overflow-y-auto",
+      "flex",
+      "min-h-full",
+      "items-center",
+      "justify-center",
+      "px-4",
+      "py-6",
+      "text-center",
+      "w-full",
+      "max-w-md",
+      "transform",
+      "overflow-hidden",
+      "rounded-lg",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "p-6",
+      "text-left",
+      "align-middle",
+      "shadow-xl",
+      "transition-all",
+      "text-lg",
+      "font-semibold",
+      "text-zinc-800",
+      "dark:text-zinc-100",
+      "mb-4"
+    ],
+    "lastModified": "2025-05-10T03:58:18.188Z",
+    "size": 1677
+  },
+  "client\\src\\components\\ui\\Pagination.jsx": {
+    "imports": [
+      "import { ChevronLeftIcon, ChevronRightIcon } from \"@heroicons/react/24/solid\";"
+    ],
+    "tailwindClasses": [
+      "flex",
+      "justify-center",
+      "items-center",
+      "gap-2",
+      "mt-6",
+      "p-2",
+      "rounded-full",
+      "bg-zinc-200",
+      "dark:bg-zinc-700",
+      "hover:bg-zinc-300",
+      "dark:hover:bg-zinc-600",
+      "transition",
+      "w-4",
+      "h-4",
+      "text-zinc-700",
+      "dark:text-white"
+    ],
+    "lastModified": "2025-05-09T19:32:49.585Z",
+    "size": 1389
+  },
+  "client\\src\\components\\ui\\SelectDropdown.jsx": {
+    "imports": [
+      "import React from \"react\";"
+    ],
+    "tailwindClasses": [
+      "space-y-1",
+      "text-sm",
+      "w-full",
+      "block",
+      "font-medium",
+      "text-zinc-700",
+      "dark:text-zinc-200",
+      "px-3",
+      "py-2",
+      "rounded-md",
+      "border",
+      "border-zinc-300",
+      "dark:border-zinc-700",
+      "bg-white",
+      "dark:bg-zinc-800",
+      "text-zinc-900",
+      "dark:text-white",
+      "shadow-sm",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-blue-500"
+    ],
+    "lastModified": "2025-05-10T03:56:20.313Z",
+    "size": 874
+  },
+  "client\\src\\components\\ui\\Skeleton.jsx": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T03:03:25.055Z",
+    "size": 168
+  },
+  "client\\src\\components\\WidgetEditable.jsx": {
+    "imports": [
+      "import ChartComponent from \"./ChartComponent\";"
+    ],
+    "tailwindClasses": [
+      "relative",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "text-gray-800",
+      "dark:text-white",
+      "rounded-xl",
+      "shadow",
+      "p-4",
+      "hover:ring-1",
+      "hover:ring-blue-400",
+      "transition",
+      "absolute",
+      "top-2",
+      "right-2",
+      "text-zinc-400",
+      "hover:text-red-500",
+      "dark:hover:text-red-400",
+      "text-lg",
+      "font-bold",
+      "focus:outline-none",
+      "font-semibold",
+      "mb-2",
+      "text-sm"
+    ],
+    "lastModified": "2025-05-10T17:32:52.720Z",
+    "size": 1179
+  },
+  "client\\src\\context\\AuthContext.jsx": {
+    "imports": [
+      "import { createContext, useContext, useState } from 'react';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T15:29:38.793Z",
+    "size": 449
+  },
+  "client\\src\\context\\ThemeContext.jsx": {
+    "imports": [
+      "import { createContext, useContext, useEffect, useState } from 'react'"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-08T22:32:37.889Z",
+    "size": 978
+  },
+  "client\\src\\hooks\\useLocalStorage.js": {
+    "imports": [
+      "import { useState, useEffect } from \"react\";"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T03:59:35.157Z",
+    "size": 415
+  },
+  "client\\src\\index.css": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T03:46:20.312Z",
+    "size": 975
+  },
+  "client\\src\\main.jsx": {
+    "imports": [
+      "import { StrictMode } from 'react';",
+      "import { createRoot } from 'react-dom/client';",
+      "import { BrowserRouter } from 'react-router-dom';",
+      "import App from './App';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T03:45:56.881Z",
+    "size": 355
+  },
+  "client\\src\\mocks\\mockResults.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-06T03:54:42.084Z",
+    "size": 3151
+  },
+  "client\\src\\pages\\Analyze.jsx": {
+    "imports": [
+      "import { useState, useEffect } from 'react'",
+      "import ProductForm from '../components/ProductForm'",
+      "import ProductPreview from '../components/ProductPreview'",
+      "import ProductResult from '../components/ProductResult'",
+      "import Loader from '../components/Loader'",
+      "import { AnimatePresence, motion } from 'framer-motion'",
+      "import mockResults from '../mocks/mockResults'"
+    ],
+    "tailwindClasses": [
+      "w-full",
+      "transition-colors",
+      "duration-300",
+      "bg-white",
+      "dark:bg-[#1f2937]",
+      "text-gray-900",
+      "dark:text-white",
+      "text-2xl",
+      "md:text-3xl",
+      "font-bold",
+      "mb-6",
+      "text-center",
+      "max-w-7xl",
+      "mx-auto",
+      "grid",
+      "md:grid-cols-2",
+      "gap-6",
+      "flex",
+      "justify-center",
+      "items-center",
+      "min-h-[300px]",
+      "space-y-6",
+      "gap-4",
+      "bg-gray-600",
+      "hover:bg-gray-700",
+      "text-white",
+      "font-semibold",
+      "py-2",
+      "px-4",
+      "rounded",
+      "bg-green-600",
+      "hover:bg-green-700"
+    ],
+    "lastModified": "2025-05-10T19:53:40.937Z",
+    "size": 4979
+  },
+  "client\\src\\pages\\Dashboard.jsx": {
+    "imports": [
+      "import { useEffect, useState } from \"react\";",
+      "import ChartComponent from \"../components/ChartComponent\";",
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [
+      "p-4",
+      "space-y-6",
+      "text-gray-800",
+      "dark:text-white",
+      "text-2xl",
+      "font-bold",
+      "bg-white",
+      "dark:bg-zinc-900",
+      "rounded-xl",
+      "shadow",
+      "text-lg",
+      "font-semibold",
+      "mb-2",
+      "text-gray-500",
+      "dark:text-gray-300"
+    ],
+    "lastModified": "2025-05-10T18:39:50.937Z",
+    "size": 1378
+  },
+  "client\\src\\pages\\Estadisticas.jsx": {
+    "imports": [
+      "import { useEffect, useState } from \"react\";",
+      "import Skeleton from \"../components/ui/Skeleton\";",
+      "import { fetchEstadisticasResumen } from \"../services/stats.service\";",
+      "import { getUserWidgets, saveUserWidgets } from \"../services/dashboard.service\";",
+      "import ChartComponent from \"../components/ChartComponent\";",
+      "import MetricasSidebar from \"../components/MetricasSidebar\";",
+      "import WidgetEditable from \"../components/WidgetEditable\";",
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [
+      "grid",
+      "grid-cols-2",
+      "gap-4",
+      "p-4",
+      "h-24",
+      "w-full",
+      "rounded-xl",
+      "flex",
+      "flex-1",
+      "space-y-6",
+      "justify-between",
+      "items-center",
+      "text-2xl",
+      "font-bold",
+      "space-x-2",
+      "bg-blue-600",
+      "text-white",
+      "px-4",
+      "py-2",
+      "rounded",
+      "shadow",
+      "hover:bg-blue-700",
+      "bg-green-600",
+      "hover:bg-green-700",
+      "bg-white",
+      "border",
+      "border-gray-300",
+      "text-gray-700",
+      "dark:bg-zinc-900",
+      "text-lg",
+      "font-semibold",
+      "mb-2",
+      "text-sm",
+      "text-gray-500",
+      "grid-cols-1",
+      "md:grid-cols-2",
+      "lg:grid-cols-3"
+    ],
+    "lastModified": "2025-05-10T22:38:26.459Z",
+    "size": 4579
+  },
+  "client\\src\\pages\\LandingPage.jsx": {
+    "imports": [
+      "import { useNavigate } from 'react-router-dom';",
+      "import { useEffect } from 'react';",
+      "import { motion } from 'framer-motion';"
+    ],
+    "tailwindClasses": [
+      "min-h-screen",
+      "bg-white",
+      "dark:bg-gray-900",
+      "text-gray-800",
+      "dark:text-white",
+      "flex",
+      "flex-col",
+      "text-center",
+      "py-20",
+      "px-4",
+      "md:px-12",
+      "text-4xl",
+      "md:text-6xl",
+      "font-bold",
+      "mb-4",
+      "text-lg",
+      "md:text-xl",
+      "mb-8",
+      "max-w-2xl",
+      "mx-auto",
+      "sm:flex-row",
+      "justify-center",
+      "gap-4",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "font-semibold",
+      "px-6",
+      "py-3",
+      "rounded-lg",
+      "transition",
+      "bg-gray-200",
+      "hover:bg-gray-300",
+      "dark:bg-gray-700",
+      "dark:hover:bg-gray-600",
+      "grid",
+      "md:grid-cols-3",
+      "gap-6",
+      "py-12",
+      "max-w-6xl",
+      "bg-gray-100",
+      "dark:bg-gray-800",
+      "p-6",
+      "shadow",
+      "text-xl",
+      "mb-2",
+      "text-gray-700",
+      "dark:text-gray-300",
+      "bg-green-600",
+      "hover:bg-green-700"
+    ],
+    "lastModified": "2025-05-07T05:10:12.952Z",
+    "size": 3855
+  },
+  "client\\src\\pages\\Login.jsx": {
+    "imports": [
+      "import { useState } from 'react';",
+      "import { useNavigate } from 'react-router-dom';",
+      "import api from '../utils/axiosInstance';",
+      "import { toast } from 'react-toastify';"
+    ],
+    "tailwindClasses": [
+      "min-h-screen",
+      "flex",
+      "items-center",
+      "justify-center",
+      "bg-gray-100",
+      "dark:bg-gray-900",
+      "bg-white",
+      "dark:bg-gray-800",
+      "p-8",
+      "rounded",
+      "shadow-md",
+      "space-y-6",
+      "w-full",
+      "max-w-md",
+      "text-2xl",
+      "font-bold",
+      "text-gray-900",
+      "dark:text-white",
+      "p-3",
+      "border",
+      "dark:bg-gray-700",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "font-semibold",
+      "py-2",
+      "text-sm",
+      "text-gray-600",
+      "dark:text-gray-400",
+      "text-center",
+      "text-blue-600",
+      "dark:text-blue-400",
+      "hover:underline"
+    ],
+    "lastModified": "2025-05-07T14:16:54.138Z",
+    "size": 2606
+  },
+  "client\\src\\pages\\ProductDetail.jsx": {
+    "imports": [
+      "import { useEffect, useState } from \"react\";",
+      "import { useParams, useNavigate } from \"react-router-dom\";",
+      "import { getAnalisisPorId } from \"../services/product.service\";",
+      "import ProductResult from \"../components/ProductResult\";",
+      "import { ArrowLeftIcon } from \"@heroicons/react/24/outline\";"
+    ],
+    "tailwindClasses": [
+      "p-6",
+      "text-center",
+      "text-gray-500",
+      "text-red-500",
+      "space-y-6",
+      "max-w-5xl",
+      "mx-auto",
+      "flex",
+      "justify-between",
+      "items-center",
+      "inline-flex",
+      "px-4",
+      "py-2",
+      "bg-gray-200",
+      "text-gray-800",
+      "rounded",
+      "hover:bg-gray-300",
+      "transition-colors",
+      "shadow-sm",
+      "w-5",
+      "h-5",
+      "mr-2",
+      "text-xl",
+      "font-bold"
+    ],
+    "lastModified": "2025-05-09T17:03:19.073Z",
+    "size": 2137
+  },
+  "client\\src\\pages\\Products.jsx": {
+    "imports": [
+      "import { useEffect, useMemo, useState } from \"react\";",
+      "import { useNavigate } from \"react-router-dom\";",
+      "import { getAnalisis } from \"../services/product.service\";",
+      "import ExportModal from \"../components/ExportModal\";",
+      "import FilterDropdown from \"../components/FilterDropdown\";",
+      "import ColumnSettingsModal from \"../components/ColumnSettingsModal\";"
+    ],
+    "tailwindClasses": [
+      "w-4",
+      "h-4",
+      "inline",
+      "ml-1",
+      "space-y-6",
+      "p-6",
+      "text-gray-800",
+      "dark:text-white",
+      "flex",
+      "justify-between",
+      "items-center",
+      "flex-wrap",
+      "gap-4",
+      "text-2xl",
+      "font-bold",
+      "gap-3",
+      "border",
+      "px-3",
+      "py-1.5",
+      "rounded-md",
+      "text-sm",
+      "dark:bg-gray-800",
+      "dark:border-gray-600",
+      "focus:ring-2",
+      "focus:ring-blue-500",
+      "btn",
+      "dark:bg-zinc-700",
+      "dark:hover:bg-zinc-600",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "mt-4",
+      "overflow-auto",
+      "rounded",
+      "shadow",
+      "dark:border-gray-700",
+      "min-w-full",
+      "bg-gray-100",
+      "dark:bg-gray-700",
+      "text-gray-700",
+      "p-3",
+      "w-6",
+      "text-left",
+      "cursor-pointer",
+      "divide-y",
+      "divide-gray-200",
+      "dark:divide-gray-700",
+      "hover:bg-gray-100",
+      "dark:hover:bg-gray-800",
+      "transition",
+      "font-medium",
+      "text-gray-900",
+      "text-xs",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "mt-6",
+      "px-2",
+      "text-zinc-500",
+      "dark:text-zinc-400",
+      "space-x-2",
+      "p-1",
+      "bg-zinc-100",
+      "dark:bg-zinc-800",
+      "hover:bg-zinc-200",
+      "dark:hover:bg-zinc-700",
+      "disabled:opacity-30",
+      "w-5",
+      "h-5",
+      "text-zinc-600",
+      "dark:text-zinc-300"
+    ],
+    "lastModified": "2025-05-10T20:27:56.361Z",
+    "size": 12705
+  },
+  "client\\src\\pages\\Profile.jsx": {
+    "imports": [
+      "import { useEffect, useState } from 'react';",
+      "import api from '../utils/axiosInstance';"
+    ],
+    "tailwindClasses": [
+      "p-4",
+      "text-gray-700",
+      "dark:text-white",
+      "p-6",
+      "max-w-xl",
+      "mx-auto",
+      "bg-white",
+      "dark:bg-gray-800",
+      "rounded",
+      "shadow",
+      "text-xl",
+      "font-bold",
+      "mb-4",
+      "text-gray-900",
+      "dark:text-gray-200"
+    ],
+    "lastModified": "2025-05-07T14:18:52.861Z",
+    "size": 899
+  },
+  "client\\src\\pages\\Register.jsx": {
+    "imports": [
+      "import { useState } from 'react';",
+      "import { useNavigate } from 'react-router-dom';",
+      "import api from '../utils/axiosInstance';",
+      "import { toast } from 'react-toastify';"
+    ],
+    "tailwindClasses": [
+      "min-h-screen",
+      "flex",
+      "items-center",
+      "justify-center",
+      "bg-gray-100",
+      "dark:bg-gray-900",
+      "bg-white",
+      "dark:bg-gray-800",
+      "p-8",
+      "rounded",
+      "shadow-md",
+      "space-y-6",
+      "w-full",
+      "max-w-md",
+      "text-2xl",
+      "font-bold",
+      "text-gray-900",
+      "dark:text-white",
+      "p-3",
+      "border",
+      "dark:bg-gray-700",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "font-semibold",
+      "py-2",
+      "text-sm",
+      "text-gray-600",
+      "dark:text-gray-400",
+      "text-center",
+      "text-blue-600",
+      "dark:text-blue-400",
+      "hover:underline"
+    ],
+    "lastModified": "2025-05-07T14:18:06.919Z",
+    "size": 2733
+  },
+  "client\\src\\pages\\ReporteDetalle.jsx": {
+    "imports": [
+      "import { useParams, useNavigate } from 'react-router-dom';",
+      "import { useState, useEffect, useMemo, useCallback } from 'react';",
+      "import api from '../utils/axiosInstance';",
+      "import SidebarCampos from '../components/SidebarCampos';",
+      "import { Chart } from 'react-chartjs-2';",
+      "import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';"
+    ],
+    "tailwindClasses": [
+      "p-6",
+      "text-gray-700",
+      "dark:text-white",
+      "grid",
+      "grid-cols-1",
+      "lg:grid-cols-4",
+      "gap-6",
+      "lg:col-span-3",
+      "space-y-6",
+      "mb-6",
+      "flex",
+      "justify-between",
+      "items-center",
+      "mb-4",
+      "text-2xl",
+      "font-bold",
+      "text-gray-800",
+      "space-x-3",
+      "bg-blue-600",
+      "hover:bg-blue-700",
+      "text-white",
+      "px-4",
+      "py-2",
+      "rounded",
+      "bg-green-600",
+      "hover:bg-green-700",
+      "w-full",
+      "px-3",
+      "border",
+      "dark:bg-gray-800",
+      "font-mono",
+      "resize-none",
+      "bg-white",
+      "shadow",
+      "p-4",
+      "min-h-[300px]",
+      "p-2",
+      "dark:bg-gray-700",
+      "text-gray-500",
+      "dark:text-gray-300",
+      "text-center"
+    ],
+    "lastModified": "2025-05-08T13:32:29.013Z",
+    "size": 8101
+  },
+  "client\\src\\routes\\AppRoutes.jsx": {
+    "imports": [
+      "import { Routes, Route } from 'react-router-dom';",
+      "import Login from '../pages/Login';",
+      "import Register from '../pages/Register';",
+      "import Dashboard from '../pages/Dashboard';",
+      "import Products from '../pages/Products';",
+      "import Layout from '../components/Layout';",
+      "import Analyze from '../pages/Analyze';",
+      "import ProductDetail from '../pages/ProductDetail';",
+      "import LandingPage from '../pages/LandingPage';",
+      "import PrivateRoute from '../components/PrivateRoute';",
+      "import Estadisticas from '../pages/Estadisticas';",
+      "import ReporteDetalle from '../pages/ReporteDetalle';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T16:42:59.904Z",
+    "size": 1489
+  },
+  "client\\src\\services\\dashboard.service.js": {
+    "imports": [
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T04:59:10.484Z",
+    "size": 689
+  },
+  "client\\src\\services\\product.service.js": {
+    "imports": [
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T15:41:33.472Z",
+    "size": 722
+  },
+  "client\\src\\services\\stats.service.js": {
+    "imports": [
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T03:14:07.127Z",
+    "size": 373
+  },
+  "client\\src\\styles\\theme.css": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T03:45:52.719Z",
+    "size": 0
+  },
+  "client\\src\\styles\\ui.css": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T03:42:03.423Z",
+    "size": 1624
+  },
+  "client\\src\\utils\\auth.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:44:41.295Z",
+    "size": 214
+  },
+  "client\\src\\utils\\axiosInstance.js": {
+    "imports": [
+      "import axios from 'axios';",
+      "import { logout } from './auth';"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:44:58.823Z",
+    "size": 1449
+  },
+  "client\\tailwind.config.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-10T05:18:23.656Z",
+    "size": 1514
+  },
+  "client\\vite.config.js": {
+    "imports": [
+      "import { defineConfig } from 'vite'",
+      "import react from '@vitejs/plugin-react'"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-04T21:21:00.399Z",
+    "size": 161
+  },
+  "server\\config\\db.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-04T23:58:46.369Z",
+    "size": 373
+  },
+  "server\\controllers\\analisis.controller.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T18:52:13.920Z",
+    "size": 5651
+  },
+  "server\\controllers\\auth.controller.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:55:37.366Z",
+    "size": 2935
+  },
+  "server\\controllers\\dashboard.controller.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T04:38:45.091Z",
+    "size": 1686
+  },
+  "server\\controllers\\stats.controller.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T06:13:33.177Z",
+    "size": 1125
+  },
+  "server\\controllers\\user.controller.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T21:19:50.519Z",
+    "size": 860
+  },
+  "server\\index.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T05:33:27.987Z",
+    "size": 1736
+  },
+  "server\\middleware\\auth.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T04:01:00.351Z",
+    "size": 523
+  },
+  "server\\middleware\\auth.middleware.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T05:50:30.585Z",
+    "size": 733
+  },
+  "server\\middleware\\errorHandler.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T04:01:10.503Z",
+    "size": 254
+  },
+  "server\\models\\Analisis.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T18:46:32.095Z",
+    "size": 767
+  },
+  "server\\models\\ProductAnalysis.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-05T01:08:10.406Z",
+    "size": 488
+  },
+  "server\\models\\User.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T21:19:24.178Z",
+    "size": 516
+  },
+  "server\\models\\UserDashboardConfig.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T04:26:57.365Z",
+    "size": 1150
+  },
+  "server\\package-lock.json": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:10:43.740Z",
+    "size": 75918
+  },
+  "server\\package.json": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:10:43.698Z",
+    "size": 797
+  },
+  "server\\routes\\analisis.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T14:30:41.226Z",
+    "size": 961
+  },
+  "server\\routes\\analysis.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T05:42:06.446Z",
+    "size": 707
+  },
+  "server\\routes\\auth.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T14:08:10.504Z",
+    "size": 369
+  },
+  "server\\routes\\dashboard.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T04:35:42.731Z",
+    "size": 380
+  },
+  "server\\routes\\gpt.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-05T01:52:45.355Z",
+    "size": 1306
+  },
+  "server\\routes\\stats.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T06:14:16.399Z",
+    "size": 378
+  },
+  "server\\routes\\user.routes.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T21:21:20.581Z",
+    "size": 1165
+  },
+  "server\\search-fn.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-08T23:53:16.881Z",
+    "size": 707
+  },
+  "server\\services\\dashboard.service.js": {
+    "imports": [
+      "import axios from \"../utils/axiosInstance\";"
+    ],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T04:42:33.565Z",
+    "size": 589
+  },
+  "server\\services\\gpt.service.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-05T01:59:41.473Z",
+    "size": 1834
+  },
+  "server\\services\\stats.service.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-09T02:58:25.183Z",
+    "size": 454
+  },
+  "server\\swagger.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T04:02:24.788Z",
+    "size": 558
+  },
+  "server\\utils\\botMemory.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-08T23:52:44.673Z",
+    "size": 1114
+  },
+  "server\\utils\\validators.js": {
+    "imports": [],
+    "tailwindClasses": [],
+    "lastModified": "2025-05-07T04:01:57.019Z",
+    "size": 468
+  }
+}

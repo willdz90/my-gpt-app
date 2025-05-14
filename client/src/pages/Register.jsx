@@ -1,83 +1,153 @@
-// src/pages/Register.jsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../utils/axiosInstance';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Input } from "../components/ui/Input";
+import Button from "../components/ui/Button";
+import { useAuth } from "../context/AuthContext";
 
-export default function Register() {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [loading, setLoading] = useState(false);
+const Register = () => {
   const navigate = useNavigate();
+  const { persistSession } = useAuth();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+
+  const validate = () => {
+    const errs = {};
+    if (!form.email.includes("@")) errs.email = "Correo inválido";
+    if (form.password.length < 8) errs.password = "Mínimo 8 caracteres";
+    if (form.password !== form.confirmPassword)
+      errs.confirmPassword = "Las contraseñas no coinciden";
+    return errs;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors({});
+    setApiError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) return setErrors(errs);
+
     setLoading(true);
-
     try {
-      // Registrar
-      await api.post('/api/auth/register', form);
-      toast.success('Usuario creado correctamente');
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error en registro");
 
-      // Login automático
-      const loginRes = await api.post('/api/auth/login', form);
-      const token = loginRes.data.token;
+      const loginRes = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+        credentials: "include",
+      });
+      const loginData = await loginRes.json();
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('token_expiration', Date.now() + 60 * 60 * 1000); // 1 hora
-      localStorage.setItem('last_activity', Date.now());
-
-      navigate('/dashboard');
+      if (loginData.token) {
+        persistSession(loginData.token);
+        navigate("/dashboard");
+      } else {
+        throw new Error("Registro exitoso, pero fallo al iniciar sesión");
+      }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Error al registrar');
+      setApiError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-100 dark:bg-zinc-900">
       <form
         onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-800 p-8 rounded shadow-md space-y-6 w-full max-w-md"
+        className="w-full max-w-md space-y-6 bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-xl"
+        role="form"
+        aria-label="Formulario de registro"
       >
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Crear Cuenta</h1>
+        <h2 className="text-2xl font-semibold text-center text-zinc-800 dark:text-white">
+          Crear cuenta
+        </h2>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Correo electrónico"
-          value={form.email}
-          onChange={handleChange}
-          required
-          className="w-full p-3 border rounded dark:bg-gray-700 dark:text-white"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña (mínimo 6 caracteres)"
-          value={form.password}
-          onChange={handleChange}
-          required
-          className="w-full p-3 border rounded dark:bg-gray-700 dark:text-white"
-        />
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            Correo electrónico
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={form.email}
+            onChange={handleChange}
+            aria-invalid={!!errors.email}
+            required
+          />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        </div>
 
-        <button
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            Contraseña
+          </label>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="new-password"
+            value={form.password}
+            onChange={handleChange}
+            aria-invalid={!!errors.password}
+            required
+          />
+          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            Confirmar contraseña
+          </label>
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            autoComplete="new-password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            aria-invalid={!!errors.confirmPassword}
+            required
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+          )}
+        </div>
+
+        {apiError && <p className="text-red-600 text-center text-sm">{apiError}</p>}
+
+        <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
+          className="w-full bg-primary text-white hover:bg-primary/90"
         >
-          {loading ? 'Registrando...' : 'Registrarse'}
-        </button>
-
-        <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-          ¿Ya tienes cuenta? <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline">Iniciar sesión</a>
-        </p>
+          {loading ? "Registrando..." : "Registrarse"}
+        </Button>
       </form>
     </div>
   );
-}
+};
+
+export default Register;

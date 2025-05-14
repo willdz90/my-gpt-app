@@ -1,10 +1,14 @@
 // src/components/PrivateRoute.jsx
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import SplashLoader from './ui/SplashLoader';
 
 export default function PrivateRoute({ children }) {
-  const token = localStorage.getItem('token');
-  const expiration = localStorage.getItem('token_expiration');
-  const isAuthenticated = token && expiration && Date.now() < parseInt(expiration);
+  const { user } = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (user === null) {
+    return <SplashLoader />;
+  }
+
+  return user ? children : <Navigate to="/login" />;
 }

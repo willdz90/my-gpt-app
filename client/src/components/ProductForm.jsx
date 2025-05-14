@@ -8,14 +8,14 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
 
   const handleChange = (e) => {
     const { name, value, files, type, checked } = e.target;
-  
+
     if (type === 'checkbox') {
       if (name === 'modoBasico') {
         setModoBasico(checked);
       }
       return;
     }
-  
+
     if (name === 'imagenes') {
       const newFiles = Array.from(files);
       if (newFiles.length > 6) {
@@ -26,14 +26,14 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
       setFormData({ ...formData, imagenes: newFiles });
       return;
     }
-  
+
     const updatedData = { ...formData, [name]: value };
-  
+
     // Validación
     if (name === 'precio_esperado' || name === 'precio_proveedor') {
       const venta = parseFloat(name === 'precio_esperado' ? value : formData.precio_esperado);
       const proveedor = parseFloat(name === 'precio_proveedor' ? value : formData.precio_proveedor);
-  
+
       if (!isNaN(venta) && !isNaN(proveedor)) {
         if (proveedor > venta) {
           setErrorPrecio(true);
@@ -43,7 +43,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
         }
       }
     }
-  
+
     setFormData(updatedData);
   };
 
@@ -82,7 +82,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
           e.preventDefault();
           onSubmit();
         }}
-        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4 transition-all w-full"
+        className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md space-y-4 transition-all w-full"
       >
         <h2 className="text-xl font-bold text-gray-800 dark:text-white">Datos del Producto</h2>
 
@@ -103,7 +103,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
           placeholder="Nombre *"
           value={formData.nombre || ''}
           onChange={handleChange}
-          className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+          className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600 focus:ring focus:ring-blue-500"
           required
         />
 
@@ -115,7 +115,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
               rows="2"
               value={formData.descripcion || ''}
               onChange={handleChange}
-              className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600 focus:ring"
               required
             />
 
@@ -124,7 +124,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
               placeholder="Categoría"
               value={formData.categoria || ''}
               onChange={handleChange}
-              className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             />
 
             <textarea
@@ -133,7 +133,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
               rows="2"
               value={formData.caracteristicas || ''}
               onChange={handleChange}
-              className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             />
 
             <textarea
@@ -142,7 +142,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
               rows="2"
               value={formData.puntos_venta || ''}
               onChange={handleChange}
-              className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             />
 
             <input
@@ -150,7 +150,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
               placeholder="Público objetivo"
               value={formData.target || ''}
               onChange={handleChange}
-              className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+              className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             />
           </>
         )}
@@ -165,7 +165,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
             min="0"
             step="0.01"
             required
-            className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+            className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
           />
 
           <input
@@ -175,7 +175,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
             value={formData.proveedor || ''}
             onChange={handleChange}
             required
-            className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+            className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
           />
         </div>
 
@@ -188,18 +188,13 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
             onChange={handleChange}
             min="0"
             step="0.01"
-            className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+            className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
           />
-          {/* {errorPrecio && (
-            <p className="text-sm text-red-500 mt-1">
-              El precio del proveedor no puede ser mayor que el precio estimado de venta.
-            </p>
-          )} */}
           <select
             name="idioma"
             value={formData.idioma || 'es'}
             onChange={handleChange}
-            className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+            className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             required
           >
             <option value="es">Español</option>
@@ -218,7 +213,7 @@ export default function ProductForm({ formData = {}, setFormData, onSubmit, onRe
             multiple
             onChange={handleChange}
             ref={fileInputRef}
-            className="w-full p-2 rounded border dark:bg-gray-700 dark:text-white"
+            className="w-full p-2 rounded border border-gray-300 dark:bg-zinc-800 dark:text-white dark:border-gray-600"
             required
           />
         </div>

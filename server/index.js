@@ -1,50 +1,59 @@
+require('dotenv').config();
+const auditMiddleware = require('./middleware/audit.middleware');
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
-
-const analysisRoutes = require('./routes/analysis.routes');
-const authRoutes = require('./routes/auth.routes');
-const userRoutes = require('./routes/user.routes');
-const gptRoutes = require('./routes/gpt.routes');
-const errorHandler = require('./middleware/errorHandler');
-const { swaggerUi, specs } = require('./swagger');
-const statsRoutes = require('./routes/stats.routes');
-const dashboardRoutes = require("./routes/dashboard.routes");
-
-
+const morgan = require('morgan');
+const path = require('path');
 
 const app = express();
 
-// Middleware de seguridad
+// Seguridad HTTP
+app.use(auditMiddleware);
+app.use(helmet());
+app.disable('x-powered-by');
+
+// Logs de desarrollo
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
+
+// Middleware base
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true // permite cookies entre frontend y backend
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true
 }));
-app.use(cookieParser());
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(cookieParser());
+
+// Conexión MongoDB
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("✅ Conectado a MongoDB"))
+.catch(err => {
+  console.error("❌ Error al conectar MongoDB:", err.message);
+  process.exit(1);
+});
 
 // Rutas
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/analysis', analysisRoutes);
-app.use('/api/gpt', gptRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-app.use('/api/stats', statsRoutes);
-app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/auth", require('./routes/auth.routes'));
+app.use("/api/analisis", require('./routes/analisis.routes'));
+app.use("/api/dashboard", require('./routes/dashboard.routes'));
+app.use("/api/users", require('./routes/user.routes'));
+app.use("/api/query", require('./routes/query.routes'));
+app.use("/api/stats", require('./routes/stats.routes'));
+app.use("/api/gpt", require('./routes/gpt.routes'));
+app.use("/api/audit", require("./routes/audit.routes"));
+app.use("/api/reportes", require('./routes/reportes.routes'));
 
-// Manejo de errores
-app.use(errorHandler);
 
-// Conexión a base de datos y arranque del servidor
-const PORT = process.env.PORT || 3000;
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`🟢 Servidor corriendo en http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => console.error('Error al conectar con MongoDB:', err));
+// Endpoint de salud
+app.get("/api/health", (req, res) => res.send("OK"));
+
+// Middleware global de errores
+app.use(require('./middleware/errorHandler'));
+
+// Servidor
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`🚀 Servidor iniciado en http://localhost:${PORT}`));

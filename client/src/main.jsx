@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App'; // App ahora exporta AppWrapper
 import './index.css';
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

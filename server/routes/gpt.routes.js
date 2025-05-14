@@ -1,44 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../middleware/auth.middleware');
+const { verifyToken, hasRole } = require('../middleware/auth');
+const auditMiddleware = require('../middleware/audit.middleware');
 const { generateProductAnalysis } = require('../services/gpt.service');
 const ProductAnalysis = require('../models/ProductAnalysis');
 
-router.post('/analyze', verifyToken, async (req, res) => {
+// POST /api/gpt/product-analysis → genera análisis desde GPT
+router.post('/product-analysis', verifyToken, auditMiddleware, hasRole('analyst', 'manager', 'admin'), generateProductAnalysis);
+
+// GET /api/gpt/product-analysis → obtener todos los análisis del usuario
+router.get('/product-analysis', verifyToken, auditMiddleware, hasRole('analyst', 'manager', 'admin'), async (req, res) => {
   try {
-    const {
-      productName, price, origin, function: fn,
-      features, audience, differential, image
-    } = req.body;
-
-    // Validación mínima
-    if (!productName && !image) {
-      return res.status(400).json({ message: 'Debe proporcionar al menos un nombre de producto o imagen.' });
-    }
-
-    const analysisText = await generateProductAnalysis(req.body);
-
-    const analysis = new ProductAnalysis({
-      user: req.user.userId,
-      productName,
-      price,
-      origin,
-      function: fn,
-      features,
-      audience,
-      differential,
-      image,
-      analysisText
-    });
-
-    await analysis.save();
-
-    res.status(201).json({ message: 'Análisis generado y guardado', analysis });
+    const userId = req.user.userId;
+    const data = await ProductAnalysis.find({ userId }).sort({ createdAt: -1 });
+    res.json({ success: true, data });
   } catch (error) {
-    console.error('❌ Error GPT:', error.response?.data || error.message || error);
-    res.status(500).json({ message: 'Error al generar el análisis' });
+    console.error("❌ Error al obtener análisis GPT:", error.message);
+    res.status(500).json({ success: false, message: "Error interno" });
   }
-  
 });
 
 module.exports = router;

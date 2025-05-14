@@ -1,45 +1,78 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
-const ROOT_DIRS = ['client', 'server'];
-const EXCLUDE_DIRS = ['node_modules', '.git', 'dist', 'build', '.tmp.drivedownload', '.tmp.driveupload'];
+const ROOT_DIR = process.cwd();
+const TARGET_DIRS = ['client', 'server'];
+const OUTPUT_FILE = 'estructura-proyecto-extendida.json';
 const ALLOWED_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json'];
+const EXCLUDED_PATHS = ['node_modules', '.git', '.env'];
 
-function scanDir(baseDir) {
-  const structure = {};
+async function getAllFiles(dirPath) {
+  let entries = await fs.readdir(dirPath, { withFileTypes: true });
+  let files = [];
 
-  function walk(dir, relativeTo) {
-    const result = [];
-    const items = fs.readdirSync(dir);
-    for (const item of items) {
-      const fullPath = path.join(dir, item);
-      const relPath = path.relative(relativeTo, fullPath);
-      const stat = fs.statSync(fullPath);
+  for (let entry of entries) {
+    const fullPath = path.join(dirPath, entry.name);
+    const relPath = path.relative(ROOT_DIR, fullPath);
 
-      if (stat.isDirectory()) {
-        if (!EXCLUDE_DIRS.includes(item)) {
-          const subItems = walk(fullPath, relativeTo);
-          if (subItems.length > 0) {
-            result.push({ [item]: subItems });
-          }
-        }
-      } else {
-        if (ALLOWED_EXTENSIONS.includes(path.extname(item))) {
-          result.push(item);
-        }
-      }
-    }
-    return result;
-  }
+    if (EXCLUDED_PATHS.some(ex => relPath.includes(ex))) continue;
 
-  for (const root of ROOT_DIRS) {
-    if (fs.existsSync(root)) {
-      structure[root] = walk(root, root);
+    if (entry.isDirectory()) {
+      files = files.concat(await getAllFiles(fullPath));
+    } else if (ALLOWED_EXTENSIONS.includes(path.extname(entry.name))) {
+      files.push(fullPath);
     }
   }
 
-  fs.writeFileSync('estructura-proyecto.json', JSON.stringify(structure, null, 2), 'utf8');
-  console.log('✅ estructura-proyecto.json generado correctamente.');
+  return files;
 }
 
-scanDir();
+function extractImports(content) {
+  const importRegex = /import\s.+\sfrom\s['"].+['"];?/g;
+  return content.match(importRegex) || [];
+}
+
+function extractTailwindClasses(content) {
+  const classRegex = /class(Name)?=["'`]{1}([^"'`]+)["'`]{1}/g;
+  let classes = [];
+  let match;
+  while ((match = classRegex.exec(content)) !== null) {
+    classes.push(...match[2].split(/\s+/));
+  }
+  return [...new Set(classes)];
+}
+
+async function generateStructure() {
+  let structure = {};
+
+  for (let dir of TARGET_DIRS) {
+    const fullDirPath = path.join(ROOT_DIR, dir);
+    const files = await getAllFiles(fullDirPath);
+
+    for (let filePath of files) {
+      try {
+        const content = await fs.readFile(filePath, 'utf-8');
+        const stats = await fs.stat(filePath);
+        const relativePath = path.relative(ROOT_DIR, filePath);
+
+        structure[relativePath] = {
+          imports: extractImports(content),
+          tailwindClasses: extractTailwindClasses(content),
+          lastModified: stats.mtime,
+          size: stats.size
+        };
+      } catch (error) {
+        console.error(`❌ Error processing ${filePath}:`, error.message);
+      }
+    }
+  }
+
+  try {
+    await fs.writeFile(OUTPUT_FILE, JSON.stringify(structure, null, 2), 'utf-8');
+    console.log(`✅ Estructura guardada en ${OUTPUT_FILE}`);
+  } catch (error) {
+    console.error(`❌ Error writing to ${OUTPUT_FILE}:`, error.message);
+  }
+}
+
+generateStructure();

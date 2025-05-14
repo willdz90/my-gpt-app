@@ -1,8 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getEstadisticasResumen } = require('../controllers/stats.controller');
-const { verifyToken } = require('../middleware/auth.middleware');
+const { verifyToken, hasRole } = require("../middleware/auth");
+const { getEstadisticasResumen } = require("../controllers/stats.controller");
 
-router.get('/resumen', verifyToken, getEstadisticasResumen);
+// GET /api/stats/resumen → solo manager o admin
+router.get("/resumen", verifyToken, hasRole("manager", "admin"), getEstadisticasResumen);
 
 module.exports = router;

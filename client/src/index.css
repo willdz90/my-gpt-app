@@ -10,3 +10,39 @@ html, body, #root {
   overflow: hidden; /* Para evitar scroll externo */
   background-color: black; /* Fondo negro de fondo */
 }
+
+/* === react-table column resizer === */
+.resizer {
+  display: inline-block;
+  width: 6px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(50%);
+  z-index: 1;
+  touch-action: none;
+  cursor: col-resize;
+  background-color: transparent;
+}
+
+.resizer:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Optional transition */
+.th, .td {
+  transition: width 0.2s ease-in-out;
+}
+
+/* Botón premium */
+.btn {
+  @apply inline-flex items-center gap-1 px-3 py-1.5 rounded text-sm font-medium transition shadow-sm;
+  @apply bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+}
+
+
+.btn:hover:not(:disabled) {
+  @apply bg-zinc-700 dark:bg-zinc-300;
+}
+

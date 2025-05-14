@@ -1,4 +1,3 @@
-// Estadisticas.jsx
 import { useEffect, useState } from "react";
 import Skeleton from "../components/ui/Skeleton";
 import { fetchEstadisticasResumen } from "../services/stats.service";
@@ -6,12 +5,14 @@ import { getUserWidgets, saveUserWidgets } from "../services/dashboard.service";
 import ChartComponent from "../components/ChartComponent";
 import MetricasSidebar from "../components/MetricasSidebar";
 import WidgetEditable from "../components/WidgetEditable";
+import axios from "../utils/axiosInstance";
 
 export default function Estadisticas() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [widgets, setWidgets] = useState([]);
+  const [tipoAnalisis, setTipoAnalisis] = useState("positivo");
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -54,6 +55,15 @@ export default function Estadisticas() {
     setModoEdicion(!modoEdicion);
   };
 
+  const generarAnalisisSimulado = async () => {
+    try {
+      const res = await axios.post("/api/analisis/simular", { tipo: tipoAnalisis });
+      alert("Análisis simulado generado: " + res.data.data.clasificacion);
+    } catch (error) {
+      alert("Error al simular análisis");
+    }
+  };
+
   if (loading || !stats) {
     return (
       <div className="grid grid-cols-2 gap-4 p-4">
@@ -65,40 +75,35 @@ export default function Estadisticas() {
   }
 
   return (
-    <div className="flex">
-      <div className="flex-1 p-4 space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Estadísticas del Panel</h1>
-          <button
-            onClick={toggleModoEdicion}
-            className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
-          >
-            {modoEdicion ? "Cerrar edición" : "Personalizar panel"}
-          </button>
-        </div>
-
-        {/* Gráfico base fijo */}
-        <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 shadow">
-          <h2 className="text-lg font-semibold mb-2">Evolución semanal</h2>
-          <ChartComponent data={stats.historico} />
-        </div>
-
-        {/* Widgets personalizados (siempre visibles) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {widgets.map((widget, index) => (
-            <WidgetEditable
-              key={index}
-              config={widget}
-              editable={modoEdicion}
-              onDelete={() => eliminarWidget(index)}
-            />
-          ))}
-        </div>
-      </div>
-
-      {modoEdicion && (
-        <MetricasSidebar onAdd={(w) => setWidgets((prev) => [...prev, w])} />
-      )}
+    <div className="space-x-2">
+      <button
+        onClick={toggleModoEdicion}
+        className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
+      >
+        {modoEdicion ? "Cerrar edición" : "Personalizar panel"}
+      </button>
+      <button
+        onClick={() => navigate("/widgets/nuevo")}
+        className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700"
+      >
+        + Crear widget
+      </button>
+      <button
+        onClick={generarAnalisisSimulado}
+        className="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700"
+      >
+        Simular análisis
+      </button>
+      <select
+        value={tipoAnalisis}
+        onChange={(e) => setTipoAnalisis(e.target.value)}
+        className="bg-white border border-gray-300 text-gray-700 rounded px-4 py-2"
+      >
+        <option value="positivo">Positivo</option>
+        <option value="neutro">Neutro</option>
+        <option value="negativo">Negativo</option>
+      </select>
     </div>
+
   );
 }

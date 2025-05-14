@@ -1,44 +1,65 @@
-// src/utils/axiosInstance.js
-import axios from 'axios';
-import { logout } from './auth';
+import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true
+const axiosInstance = axios.create({
+  baseURL: "/api",
+  withCredentials: true,
 });
 
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosInstance.interceptors.request.use((config) => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    const token = JSON.parse(user)?.accessToken;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-api.interceptors.response.use(
-  response => response,
-  async error => {
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
+      const lastActivityRaw = localStorage.getItem("last_activity");
+      const lastActivity = Number(lastActivityRaw);
+      const now = Date.now();
+      const MAX_INACTIVITY = 15 * 60 * 1000;
+
+      console.warn("⏱ Validando inactividad...");
+      if (!lastActivityRaw || isNaN(lastActivity)) {
+        console.warn("⚠️ No hay registro de actividad previa → cerrar sesión");
+        localStorage.clear();
+        window.location.href = "/login";
+        return Promise.reject(new Error("Sesión inválida (no hay actividad registrada)"));
+      }
+
+      if (now - lastActivity > MAX_INACTIVITY) {
+        console.warn("⛔ Sesión expirada por inactividad");
+        localStorage.clear();
+        window.location.href = "/login";
+        return Promise.reject(new Error("Sesión expirada por inactividad"));
+      }
+
       try {
-        // Crear una nueva instancia de Axios sin interceptores
-        const refreshAxios = axios.create({
-          baseURL: import.meta.env.VITE_API_URL,
-          withCredentials: true
-        });
+        const res = await axios.post("/api/auth/refresh-token", {}, { withCredentials: true });
+        const token = res.data.token;
+        const decoded = JSON.parse(atob(token.split(".")[1]));
 
-        const res = await refreshAxios.post('/api/auth/refresh');
-        const newToken = res.data.token;
-        localStorage.setItem('token', newToken);
-        localStorage.setItem('token_expiration', Date.now() + 60 * 60 * 1000); // 1 hora
+        localStorage.setItem("user", JSON.stringify({ accessToken: token }));
+        localStorage.setItem("token", token);
+        localStorage.setItem("token_expiration", decoded.exp * 1000);
+        localStorage.setItem("last_activity", Date.now());
 
-        // Actualizar el encabezado Authorization y reintentar la solicitud original
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return api(originalRequest);
+        originalRequest.headers.Authorization = `Bearer ${token}`;
+        window.dispatchEvent(new Event("token_refreshed"));
+
+        return axiosInstance(originalRequest);
       } catch (err) {
-        logout();
+        console.warn("⛔ Error al renovar token");
+        localStorage.clear();
+        window.location.href = "/login";
         return Promise.reject(err);
       }
     }
@@ -47,4 +68,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default axiosInstance;

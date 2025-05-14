@@ -1,67 +1,68 @@
-// src/pages/ProductDetail.jsx
-import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeftIcon } from '@heroicons/react/24/outline'
-import mockResults from '../mocks/mockResults'
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getAnalisisPorId } from "../services/product.service";
+import ProductResult from "../components/ProductResult";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function ProductDetail() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [producto, setProducto] = useState(null);
+  const [respuesta, setRespuesta] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Simulación temporal con datos mock
-  const producto = {
-    id,
-    nombre: 'Producto simulado',
-    tipo: 'positivo',
-    precio: 25,
-    categoria: 'Tecnología',
-    proveedor: 'AliExpress',
-    fecha: '2025-05-01',
-    resultado: mockResults.positivo
+  useEffect(() => {
+    const cargarProducto = async () => {
+      const res = await getAnalisisPorId(id);
+      if (res.success && res.data) {
+        setProducto(res.data);
+
+        if (res.data.respuestaGPT && typeof res.data.respuestaGPT === "string") {
+          try {
+            const json = JSON.parse(res.data.respuestaGPT);
+            setRespuesta(json);
+          } catch (error) {
+            console.error("Error al parsear respuestaGPT:", error.message);
+          }
+        }
+      }
+      setLoading(false);
+    };
+    cargarProducto();
+  }, [id]);
+
+  if (loading) {
+    return <div className="p-6 text-center text-gray-500">Cargando...</div>;
+  }
+
+  if (!producto) {
+    return (
+      <div className="p-6 text-center text-red-500">
+        Error al cargar el producto.
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
-      {/* Botón de regreso */}
-      <div>
+    <div className="p-6 space-y-6 max-w-5xl mx-auto">
+      <div className="flex justify-between items-center">
         <button
           onClick={() => navigate(-1)}
-          className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-3 py-1.5 rounded text-sm flex items-center gap-1"
+          className="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors shadow-sm"
         >
-          <ArrowLeftIcon className="w-4 h-4" />
-          Volver a productos
+          <ArrowLeftIcon className="w-5 h-5 mr-2" />
+          Volver
         </button>
+        <h1 className="text-xl font-bold">{producto.input}</h1>
       </div>
 
-      {/* Detalles del producto */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded shadow space-y-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{producto.nombre}</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="text-gray-500">Categoría:</p>
-            <p className="text-gray-900 dark:text-white">{producto.categoria}</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Proveedor:</p>
-            <p className="text-gray-900 dark:text-white">{producto.proveedor}</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Precio:</p>
-            <p className="text-gray-900 dark:text-white">${producto.precio}</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Fecha:</p>
-            <p className="text-gray-900 dark:text-white">{producto.fecha}</p>
-          </div>
+      {respuesta?.tipo ? (
+        <ProductResult result={respuesta} />
+      ) : (
+        <div className="text-gray-500">
+          Este producto no tiene análisis disponible.
         </div>
-
-        {/* Resultado del análisis */}
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Resultado del análisis</h3>
-          <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{producto.resultado.veredicto}</p>
-          <p className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">{producto.resultado.recomendacion}</p>
-        </div>
-      </div>
+      )}
     </div>
-  )
+  );
 }
